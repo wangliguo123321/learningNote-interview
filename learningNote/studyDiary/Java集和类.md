@@ -1,4 +1,6 @@
-### Collection和Map
+  [TOC] 目录
+  
+  ### Collection和Map
 ![](http://ww1.sinaimg.cn/large/b06adeeegy1g0il5di3vxj217s0gawhu.jpg)
 
 1 Collection是一个接口，是高度抽象出来的集合，它包含了集合的基本操作和属性。
@@ -20,3 +22,7 @@
 ListIterator是专门为遍历List而存在的。
 
 再看Enumeration，它是JDK 1.0引入的抽象类。作用和Iterator一样，也是遍历集合；但是Enumeration的功能要比Iterator少。在上面的框图中，Enumeration只能在Hashtable, Vector, Stack中使用
+
+      
+      
+      ### 
