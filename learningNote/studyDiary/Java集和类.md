@@ -197,8 +197,53 @@ ListIterator是专门为遍历List而存在的。
  　　header是双向链表的表头，它是双向链表节点所对应的类Entry的实例。Entry中包含成员变量： previous, next, element。其中，previous是该节点的上一个节点，next是该节点的下一个节点，element是该节点所包含的值。 
  　　size是双向链表中节点的个数。
   
-  
-
+ ##### LinkedList遍历操作
+         for (Integer integ:list) 
+         
+ ##### LinkedList常用API      
+        llist:[10, 1, 4, 2, 3]
+        llist.removeFirst():10
+        llist:[1, 4, 2, 3]
+        llist.getFirst():1
+        
+        Test "offerFirst(), pollFirst(), peekFirst()"
+        llist:[10, 1, 4, 2, 3]
+        llist.pollFirst():10
+        llist:[1, 4, 2, 3]
+        llist.peekFirst():1
+        
+        Test "addLast(), removeLast(), getLast()"
+        llist:[1, 4, 2, 3, 20]
+        llist.removeLast():20
+        llist:[1, 4, 2, 3]
+        llist.getLast():3
+        
+        Test "offerLast(), pollLast(), peekLast()"
+        llist:[1, 4, 2, 3, 20]
+        llist.pollLast():20
+        llist:[1, 4, 2, 3]
+        llist.peekLast():3
+        
+        get(3):300
+        str:1
+        str:4
+        str:300
+        str:3
+        size:4
+        isEmpty():true
+        
+        
+        useLinkedListAsLIFO
+        stack:[4, 3, 2, 1]
+        stack.pop():4
+        stack.peek():3
+        stack:[3, 2, 1]
+        
+        useLinkedListAsFIFO
+        queue:[10, 20, 30, 40]
+        queue.remove():10
+        queue.element():20
+        queue:[20, 30, 40]
 
  
  ### Vector概述
