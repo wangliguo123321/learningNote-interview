@@ -235,7 +235,7 @@ Java 虚拟机将堆划分为新生代和老年代。其中，新生代又被划
  #### Minor GC
 在只针对新生代的 Minor GC 中，Eden 区和非空 Survivor 区的存活对象会被复制到空的 Survivor
 区中，当 Survivor 区中的存活对象复制次数超过一15次时，它将被晋升至老年代。为了避免扫描整个老年代，Java 虚拟机引入了名为卡表的技术，大致地标出可能存在老年代到新生代引用的内存区域。
-#### ：Java 虚拟机中的垃圾回收器
+#### Java 虚拟机中的垃圾回收器
  针对新生代的垃圾回收器共有三个：Serial，Parallel Scavenge 和 Parallel New。这三个采用的都是
  标记 - 复制算法。其中，Serial 是一个单线程的，Parallel New 可以看成 Serial 的多线程版
  本。Parallel Scavenge 和 Parallel New 类似，但更加注重吞吐率。此外，Parallel Scavenge 不能与
@@ -367,3 +367,6 @@ Java 源代码编译成 Java 字节码，而即时编译器则将 Java 字节码
 ![](http://ww1.sinaimg.cn/large/b06adeeegy1g0l9v2ijp0j20or0bamzl.jpg)
 具体来说，C2 和 Graal 采用的是一种名为 Sea-of-Nodes 的 IR，其特点用 IR 节点来代表程序中的
 值，并且将源程序中基于变量的计算转换为基于值的计算。
+
+
+参考：深入拆解Java虚拟机极https://time.geekbang.org/column/intro/108
