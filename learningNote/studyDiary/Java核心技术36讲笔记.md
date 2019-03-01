@@ -1,6 +1,4 @@
 [TOC]
-假装目录可以跳转
-
 对java平台的理解 
 
 Exception和Error有什么区别？是什么 区别
@@ -12,8 +10,8 @@ Exception和Error有什么区别？是什么 区别
 String、StringBuffer、StringBuilder有什么区别？ 
 
 动态代理是基于什么原理？
-#### 对java平台的理解
 
+#### 对java平台的理解
 
 Java 本身是一种面向对象的语言，最显著的特性有两个方面，一是所谓的“书写一次，到处运 行”（Write once, run anywhere），能够非常容易地获得跨平台能力；另外就是垃圾收集 （GC, Garbage Collection），Java 通过垃圾收集器（Garbage Collector）回收分配内存， 大部分情况下，程序员不需要自己操心内存的分配和回收。 我们日常会接触到 JRE（Java Runtime Environment）或者 JDK（Java Development Kit）。 JRE，也就是 Java 运行环境，包含了 JVM 和 Java 类库，以及一些模块等。而 JDK 可以看作是 JRE 的一个超集，提供了更多工具，比如编译器、各种诊断工具等。 对于“Java 是解释执行”这句话，这个说法不太准确。我们开发的 Java 的源代码，首先通过 Javac 编译成为字节码（bytecode），然后，在运行时，通过 Java 虚拟机（JVM）内嵌的解释 器将字节码转换成为最终的机器码。但是常见的 JVM，比如我们大多数情况使用的 Oracle JDK 提供的 Hotspot JVM，都提供了 JIT（Just-In-Time）编译器，也就是通常所说的动态编译器， JIT 能够在运行时将热点代码编译成机器码，这种情况下部分热点代码就属于编译执行，而不是 解释执行了
 #### Exception和Error有什么区别？
@@ -56,3 +54,8 @@ StringBuffer 是为解决上面提到拼接产生太多中间对象的问题而�
 
 反射机制是 Java 语言提供的一种基础功能，赋予程序在运行时自省（introspect，官方用语） 的能力。通过反射我们可以直接操作类或者对象，比如获取某个对象的类定义，获取类声明的属 性和方法，调用方法或者构造对象，甚至可以运行时修改类定义
 
+#### 
+
+
+
+参考链接：https://time.geekbang.org/column/intro/82

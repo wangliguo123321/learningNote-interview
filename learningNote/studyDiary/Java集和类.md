@@ -1,6 +1,5 @@
   [TOC] 目录
   
-  
 ### Collection和Map总体概述
 ![](http://ww1.sinaimg.cn/large/b06adeeegy1g0il5di3vxj217s0gawhu.jpg)
 
