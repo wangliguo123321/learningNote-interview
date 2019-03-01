@@ -43,8 +43,43 @@ StringBuffer 是为解决上面提到拼接产生太多中间对象的问题而�
 
 反射机制是 Java 语言提供的一种基础功能，赋予程序在运行时自省（introspect，官方用语） 的能力。通过反射我们可以直接操作类或者对象，比如获取某个对象的类定义，获取类声明的属 性和方法，调用方法或者构造对象，甚至可以运行时修改类定义
 
-#### 
+#### Java 对象深浅拷贝：
+浅拷贝只复制一个对象（包括基本类型），对象内部存在的指向其他对象数组或者引用则不复制 ，拷贝后两个指针指向同一个内存空间，类似于文件创建快捷方式。深拷贝：对象以及对象内部的引用均复制，深拷贝后指针指向两个不同地址，重新new一个一模一样的对象，深拷贝的两个对象完全独立,解决不能管理子对象的问题的。
+##### 使用序列化实现java的深拷贝
+        
+       // deepClone()的方法实现
+       Person person = new Person("sunjs",100);
+       Person person1 =(Person) person.deepClone();
 
+            //序列化方式
+            public class CloneUtils {
+             
+                // 拷贝一个对象
+             
+                @SuppressWarnings("unchecked")
+                public static <T extends Serializable> T clone(T obj) {
+                    // 拷贝产生的对象
+                    T clonedObj = null;
+                    try {
+                        // 读取对象字节数据
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        ObjectOutputStream oos = new ObjectOutputStream(baos);
+                        oos.writeObject(obj);
+                        oos.close();
+                        // 分配内存空间，写入原始对象，生成新对象
+                        ByteArrayInputStream bais = new ByteArrayInputStream(
+                                baos.toByteArray());
+                        ObjectInputStream ois = new ObjectInputStream(bais);
+                        // 返回新对象，并做类型转换
+                        clonedObj = (T) ois.readObject();
+                        ois.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return clonedObj;
+                }
+             
+            }
 
 
 参考链接：https://time.geekbang.org/column/intro/82
