@@ -1,15 +1,4 @@
 [TOC]
-对java平台的理解 
-
-Exception和Error有什么区别？是什么 区别
-
-谈谈 final、finally、 finalize 有什么不同？ 
-
-强引用、软引用、弱引用、幻象引用有什么区别？ 
-
-String、StringBuffer、StringBuilder有什么区别？ 
-
-动态代理是基于什么原理？
 
 #### 对java平台的理解
 
