@@ -11,11 +11,11 @@
 //
 //import java.util.ArrayList;
 //import java.util.Stack;
-//     class ListNode {
+//     class wayListNode {
 //        int val;
-//        ListNode next = null;
+//        wayListNode next = null;
 //
-//        ListNode(int val) {
+//        wayListNode(int val) {
 //            this.val = val;
 //        }
 //    }
@@ -28,7 +28,7 @@
 //
 //public class Solution2 {
 //
-//    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+//    public ArrayList<Integer> printListFromTailToHead(wayListNode listNode) {
 //        Stack<Integer> stack = new Stack <>();
 //        ArrayList <Integer> list = new ArrayList <>();
 //        while (listNode != null) {
