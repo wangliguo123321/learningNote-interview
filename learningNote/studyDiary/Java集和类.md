@@ -82,6 +82,7 @@ ListIterator是专门为遍历List而存在的。
 ####  ArrayList操作
 1. 遍历
 
+
     Integer value = null;
     int size = list.size();
     for (int i=0; i<size; i++) {
@@ -343,3 +344,106 @@ ListIterator是专门为遍历List而存在的。
         }  
  参考：http://www.cnblogs.com/skywang12345/p/3308556.html      
         
+  ### Strack概述
+  
+  #### 1.Stack是栈。它的特性是：先进后出(FILO, First In Last Out)。
+  继承了vector，Stack也是通过数组来实现的 
+  ![](http://ww1.sinaimg.cn/large/b06adeeegy1g0s6wq6vggj20fw0dut9h.jpg)
+  
+         执行push时(即，将元素推入栈中)，是通过将元素追加的数组的末尾中。
+         执行peek时(即，取出栈顶元素，不执行删除)，是返回数组末尾的元素。
+         执行pop时(即，取出栈顶元素，并将该元素从栈中删除)，是取出数组末尾的元素，然后将该元素从数组中删除。
+  
+  同时static拥有vector的所有的方法
+  
+  
+  参考链接：https://www.cnblogs.com/skywang12345/p/3308852.html
+  
+  ###  Map概述
+  Map 是一个键值对(key-value)映射接口。Map映射中不能包含重复的键；每个键最多只能映射到一个值。
+  ![](http://ww1.sinaimg.cn/large/b06adeeegy1g0t7xpvdd2j20lm09s3za.jpg)
+  #### API
+            API
+            abstract void                 clear()
+            abstract boolean              containsKey(Object key)
+            abstract boolean              containsValue(Object value)
+            abstract Set<Entry<K, V>>     entrySet()
+            abstract boolean              equals(Object object)
+            abstract V                    get(Object key)
+            abstract int                  hashCode()
+            abstract boolean              isEmpty()
+            abstract Set<K>               keySet()
+            abstract V                    put(K key, V value)
+            abstract void                 putAll(Map<? extends K, ? extends V> map)
+            abstract V                    remove(Object key)
+            abstract int                  size()
+            abstract Collection<V>        values()
+ 
+   #### SortedMap API
+             // SortedMap新增的API 
+             abstract Comparator<? super K>     comparator()
+             abstract K                         firstKey()
+             abstract SortedMap<K, V>           headMap(K endKey)
+             abstract K                         lastKey()
+             abstract SortedMap<K, V>           subMap(K startKey, K endKey)
+             abstract SortedMap<K, V>           tailMap(K startKey)
+             复制代码
+             
+  #### dictionaryAPI
+              abstract Enumeration<V>     elements()
+              abstract V                  get(Object key)
+              abstract boolean            isEmpty()
+              abstract Enumeration<K>     keys()
+              abstract V                  put(K key, V value)
+              abstract V                  remove(Object key)
+              abstract int                size()
+              
+  ### hashmap概述
+      
+  1. HashMap 继承于AbstractMap，实现了Map、Cloneable、java.io.Serializable接口。          
+  2. 它的key、value都可以为null，不是线程安全的。
+  ![](http://ww1.sinaimg.cn/large/b06adeeegy1g0t80gzh5kj20cv0fkgn7.jpg)
+  #### api
+            void                 clear()
+            Object               clone()
+            boolean              containsKey(Object key)
+            boolean              containsValue(Object value)
+            Set<Entry<K, V>>     entrySet()
+            V                    get(Object key)
+            boolean              isEmpty()
+            Set<K>               keySet()
+            V                    put(K key, V value)
+            void                 putAll(Map<? extends K, ? extends V> map)
+            V                    remove(Object key)
+            int                  size()
+            Collection<V>        values()
+   #### 原理
+HashMap是通过"拉链法"实现的哈希表。它包括几个重要的成员变量：table, size, threshold, loadFactor, modCount。
+        　　
+table是一个Entry[]数组类型，而Entry实际上就是一个单向链表。哈希表的"key-value键值对"都是存储在Entry数组中的。 
+
+size是HashMap的大小，它是HashMap保存的键值对的数量。 
+
+threshold是HashMap的阈值，用于判断是否需要调整HashMap的容量。threshold的值="容量*加载因子"，当HashMap中存储数据的数量达到threshold时，就需要将HashMap的容量加倍。
+
+loadFactor就是加载因子。 
+
+modCount是用来实现fail-fast机制的
+   
+
+
+
+### Set 概述
+![](http://ww1.sinaimg.cn/large/b06adeeegy1g0t8ceb900j20g70aswf7.jpg)
+ (01) Set 是继承于Collection的接口。它是一个不允许有重复元素的集合。
+ 
+ (02) AbstractSet 是一个抽象类，它继承于AbstractCollection，AbstractCollection实现了Set中的绝大部分函数，为Set的实现类提供了便利。
+ 
+ (03) HastSet 和 TreeSet 是Set的两个实现类。
+         HashSet依赖于HashMap，它实际上是通过HashMap实现的。HashSet中的元素是无序的。
+         TreeSet依赖于TreeMap，它实际上是通过TreeMap实现的。TreeSet中的元素是有序的。
+ 
+ 
+ 
+ 
+ 参考： http://www.cnblogs.com/skywang12345/p/3311136.html
