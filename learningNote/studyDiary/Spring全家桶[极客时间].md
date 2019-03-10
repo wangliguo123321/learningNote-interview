@@ -98,3 +98,33 @@
     • Pageable / Sort
     • Slice<T> / Page<T>
     
+   #### Repository Bean 是如何创建的
+       JpaRepositoriesRegistrar
+       • 激活了 @EnableJpaRepositories
+       • 返回了 JpaRepositoryConfigExtension
+       RepositoryBeanDefinitionRegistrarSupport.registerBeanDefinitions
+       • 注册 Repository Bean（类型是 JpaRepositoryFactoryBean ）
+       RepositoryConfigurationExtensionSupport.getRepositoryConfigurations
+       • 取得 Repository 配置
+       JpaRepositoryFactory.getTargetRepository
+       • 创建了 Repository
+       
+   接⼝中的⽅法是如何被解释的
+        
+       RepositoryFactorySupport.getRepository 添加了Advice
+       • DefaultMethodInvokingMethodInterceptor
+       • QueryExecutorMethodInterceptor
+       AbstractJpaQuery.execute 执⾏具体的查询
+   ###   MyBatis
+   
+   #### 简单配置
+        • mybatis.mapper-locations = classpath*:mapper/**/*.xml
+        • mybatis.type-aliases-package = 类型别名的包名
+        • mybatis.type-handlers-package = TypeHandler扫描包名
+        • mybatis.configuration.map-underscore-to-camel-case = true
+         @MapperScan 配置扫描位置
+         @Mapper 定义接⼝
+   
+   
+   #### 运⾏ MyBatis Generator  / PageHelper
+   
