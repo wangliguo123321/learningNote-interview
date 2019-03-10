@@ -13,7 +13,6 @@ public class Solution1 {
     public void push(int node) {
         stack1.push( node );                                  //直接入栈
     }
-
     public int pop() {
         if (stack1.empty() && stack2.empty()) {               //判断栈为空
             throw new RuntimeException( "空的链表" );

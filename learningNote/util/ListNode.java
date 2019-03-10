@@ -12,9 +12,6 @@ class wayListNode {
         head.next = null ;
         return newHead ;
     }
-
-
-
 }
 
 
