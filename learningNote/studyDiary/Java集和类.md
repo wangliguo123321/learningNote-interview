@@ -418,10 +418,14 @@ ListIterator是专门为遍历List而存在的。
             int                  size()
             Collection<V>        values()
    #### 原理
-HashMap是通过"拉链法"实现的哈希表。它包括几个重要的成员变量：table, size, threshold, loadFactor, modCount。
+HashMap是通过"拉链法"实现的哈希表。它包括几个重要的成员变量：table, {size, threshold, loadFactor, modCount}。
         　　
 table是一个Entry[]数组类型，而Entry实际上就是一个单向链表。哈希表的"key-value键值对"都是存储在Entry数组中的。 
-
+    
+    transient Entry[] table; 
+    
+ Entry 是一个链表。即数组中的每个位置被当成一个桶，一个桶存放一个链表。HashMap 使用拉链法来解决冲突，同一个链表中存放哈希值相同的 Entry。
+Entry包含四个字段：size，threshold，loadFactor，modCount；
 size是HashMap的大小，它是HashMap保存的键值对的数量。 
 
 threshold是HashMap的阈值，用于判断是否需要调整HashMap的容量。threshold的值="容量*加载因子"，当HashMap中存储数据的数量达到threshold时，就需要将HashMap的容量加倍。
@@ -430,6 +434,15 @@ loadFactor就是加载因子。
 
 modCount是用来实现fail-fast机制的
    
+hash冲突：拉链法：
+1. 计算健的hashCode值，
+2. 使用除留余数法得到所在的链表下标
+3. 头插法，将键值对插入到链表中
+
+查找：
+1. 计算键值对所在链表
+2.  链表顺序查找，时间复杂度和链表成正比
+
 
 
 
