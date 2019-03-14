@@ -1,5 +1,5 @@
   [TOC] 目录
-  
+  ![](http://ww1.sinaimg.cn/large/b06adeeegy1g12a8a7q40j21mh15b10v.jpg)
 ### Collection和Map总体概述
 ![](http://ww1.sinaimg.cn/large/b06adeeegy1g0il5di3vxj217s0gawhu.jpg)
 
@@ -441,10 +441,113 @@ hash冲突：拉链法：
 
 查找：
 1. 计算键值对所在链表
-2.  链表顺序查找，时间复杂度和链表成正比
+2.  链表顺序查找，时间复杂度和链表成正比；复杂度O（N/M）
+
+为了降低复杂度：扩容增大M
 
 
+    static final int DEFAULT_INITIAL_CAPACITY = 16;
+    
+    static final int MAXIMUM_CAPACITY = 1 << 30;
+    
+    static final float DEFAULT_LOAD_FACTOR = 0.75f;
+    
+    transient Entry[] table;
+    
+    transient int size;
+    
+    int threshold;
+    
+    final float loadFactor;
+    
+    transient int modCount;
+ 
+HashMap 中计算数组容量的代码：
+ 
+     static final int tableSizeFor(int cap) {
+         int n = cap - 1;
+         n |= n >>> 1;
+         n |= n >>> 2;
+         n |= n >>> 4;
+         n |= n >>> 8;
+         n |= n >>> 16;
+         return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+     }
+     
+ JDK 1.8 开始
+ 一个桶存储的链表长度大于 8 时会将链表转换为红黑树。   
 
+##### 与 HashTable 的比较
+HashTable 使用 synchronized 来进行同步。
+
+HashMap 可以插入键为 null 的 Entry。
+
+HashMap 的迭代器是 fail-fast 迭代器。
+
+HashMap 不能保证随着时间的推移 Map 中的元素次序是不变的
+
+####  ConcurrentHashMap概述：
+ConcurrentHashMap 采用了分段锁（Segment），每个分段锁维护着几个桶（HashEntry），多个线程可以同时访问不同分段锁上的桶，从而使其并发度更高（并发度就是 Segment 的个数）。
+
+Segment 继承自 ReentrantLock(可重入锁)默认的并发级别为 16
+
+##### size操作：
+Segment 维护了一个 count 变量来统计该 Segment 中的键值对个数。
+ConcurrentHashMap 在执行 size 操作时先尝试不加锁，如果连续两次不加锁操作得到的结果一致，那么可以认为这个结果是正确的。
+
+尝试次数使用 RETRIES_BEFORE_LOCK 定义，该值为 2，retries 初始值为 -1，因此尝试次数为 3。
+如果尝试的次数超过 3 次，就需要对每个 Segment 加锁。
+
+JDK 1.7 使用分段锁机制来实现并发更新操作，核心类为 Segment，它继承自重入锁 ReentrantLock，并发度与 Segment 数量相等。默认16
+
+JDK 1.8 使用了 CAS 操作来支持更高的并发度，在 CAS 操作失败时使用内置锁 synchronized。直接用Node数组+链表+红黑树的数据结构来实现，并发控制使用Synchronized和CAS来操作，整个看起来就像是优化过且线程安全的HashMap
+    
+    
+ 1. 什么是CAS(Compare and Swap):CAS机制中使用了3个基本操作数：内存地址V，旧的预期值A，要修改的新值B。
+    
+   更新一个变量的时候，只有当变量的预期值A和内存地址V当中的实际值相同时，才会将内存地址V对应的值修改为B。
+    
+    
+ 2. . java语言CAS底层如何实现？
+            
+            利用unsafe提供的原子性操作方法。
+            
+  3. CAS的缺点：
+    
+    
+        1） CPU开销过大
+        
+        在并发量比较高的情况下，如果许多线程反复尝试更新某一个变量，却又一直更新不成功，循环往复，会给CPU带来很到的压力。
+        
+        2） 不能保证代码块的原子性
+        
+        CAS机制所保证的知识一个变量的原子性操作，而不能保证整个代码块的原子性。比如需要保证3个变量共同进行原子性的更新，就不得不使用synchronized了。
+        
+        3） ABA问题
+          
+            1.什么是ABA问题？怎么解决？
+              
+              当一个值从A变成B，又更新回A，普通CAS机制会误判通过检测。
+              
+              利用版本号比较可以有效解决ABA问题。
+
+        
+      
+并且 JDK 1.8 的实现也在链表过长时会转换为红黑树。
+
+阿里面试问题：了解一致性hash算法吗？
+起因：取模法进行缓存时候，当服务器数量发生改变时，所有缓存在一定时间内是失效的，当应用无法从缓存中获取数据时，则会向后端数据库请求数据
+
+解决：一致性Hash算法也是使用取模的方法，只是，刚才描述的取模法是对服务器的数量进行取模，而一致性Hash算法是对2^32取模
+
+引出来新的问题：Hash环的数据倾斜问题：服务节点太少时，容易因为节点分部不均匀而造成数据倾斜
+
+![](http://ww1.sinaimg.cn/large/b06adeeegy1g12asqeo93j20cc0d5dfy.jpg)
+
+解决：服务器IP或主机名的后面增加编号来实现，虚结点
+
+![](http://ww1.sinaimg.cn/large/b06adeeegy1g12asv8mbhj20k00kbaaj.jpg)
+参考链接：https://zhuanlan.zhihu.com/p/34985026
 
 ### Set 概述
 ![](http://ww1.sinaimg.cn/large/b06adeeegy1g0t8ceb900j20g70aswf7.jpg)
@@ -452,7 +555,7 @@ hash冲突：拉链法：
  
  (02) AbstractSet 是一个抽象类，它继承于AbstractCollection，AbstractCollection实现了Set中的绝大部分函数，为Set的实现类提供了便利。
  
- (03) HastSet 和 TreeSet 是Set的两个实现类。
+ (03) HastSet 和 TreeSet 是Set的两个实现类。 
          HashSet依赖于HashMap，它实际上是通过HashMap实现的。HashSet中的元素是无序的。
          TreeSet依赖于TreeMap，它实际上是通过TreeMap实现的。TreeSet中的元素是有序的。
  
