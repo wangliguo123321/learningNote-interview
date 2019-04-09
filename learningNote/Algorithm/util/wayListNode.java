@@ -20,7 +20,7 @@ public class wayListNode {
     //非递归实现链表的反转
     public ListNode reverse2(ListNode head) {
         if (head == null) return head;
-        ListNode next, pre;
+        ListNode next, pre =null;
         while (head != null) {
             next = head.next;
             head.next = pre;
@@ -315,11 +315,9 @@ public class wayListNode {
         return ans.next;
     }
     //两数 相加
-    public ListNode addTwoNumbers(ListNode one ,ListNode two){
-
-        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        public ListNode addTwoNumbers(ListNode one,ListNode two){
             ListNode ans = new ListNode(0);
-            ListNode p = l1, q = l2, curr = ans;
+            ListNode p = one, q = two, curr = ans;
             int carry = 0;
             while (p != null || q != null) {
                 int x = (p != null) ? p.val : 0;
@@ -336,9 +334,6 @@ public class wayListNode {
             }
             return ans.next;
         }
-
-
-    }
 
     //旋转链表
     public ListNode rotateRight(ListNode head, int k) {
